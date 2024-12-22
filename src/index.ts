@@ -1,6 +1,6 @@
 import { Client, TextChannel, ThreadChannel } from "discord.js";
-import { chatCommand, chatHandler } from "./commands/chat";
-import env from "@env";
+import { chatCommand, chatHandler } from "./commands/chat.js";
+import env from "./env.js";
 
 const client = new Client({
   intents: ["Guilds", "GuildMembers", "GuildMessages", "MessageContent"],

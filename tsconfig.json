@@ -7,10 +7,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
-    "paths": {
-      "@env": ["./src/env.ts"]
-    }
+    "outDir": "./dist"
   },
   "include": ["src"]
 }
