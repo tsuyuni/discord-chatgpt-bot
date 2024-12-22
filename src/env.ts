@@ -12,6 +12,9 @@ const schema = z.object({
   OPENAI_ORG_ID: z.string().nonempty(),
   OPENAI_PROJECT_ID: z.string().nonempty(),
   OPENAI_API_KEY: z.string().nonempty(),
+
+  // PostgreSQL
+  POSTGRES_DATABASE_URL: z.string().nonempty(),
 });
 
 const env = schema.parse(process.env);

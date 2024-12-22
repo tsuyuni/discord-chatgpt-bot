@@ -4,6 +4,8 @@ import {
   ApplicationCommandOptionType,
 } from "discord.js";
 import env from "../env.js";
+import { Message } from "../db/message.js";
+import sql from "../db/database.js";
 
 const openai = new OpenAI({
   organization: env.OPENAI_ORG_ID,
@@ -24,7 +26,13 @@ export const chatCommand = {
   ],
 } satisfies ApplicationCommandDataResolvable;
 
-export const chatHandler = async (message: string) => {
+export const chatHandler = async (threadId: string, message: string) => {
+  await sql`INSERT INTO messages (thread_id, role, content) VALUES (${threadId}, 'user', ${message})`;
+
+  const messages = await sql<
+    Message[]
+  >`SELECT * FROM messages WHERE thread_id = ${threadId} ORDER BY created_at`;
+
   const stream = await openai.chat.completions.create({
     model: "gpt-4o",
     messages: [
@@ -33,9 +41,14 @@ export const chatHandler = async (message: string) => {
         content:
           "You are an assistant that helps Japanese students who work on developing AI product for a hackathon. Please answer the following questions in Japanese.",
       },
-      { role: "user", content: message },
+      ...messages.map((m) => ({
+        role: m.role,
+        content: m.content,
+      })),
     ],
   });
+
+  await sql`INSERT INTO messages (thread_id, role, content) VALUES (${threadId}, 'assistant', ${stream.choices[0].message.content})`;
 
   return stream.choices[0].message.content;
 };

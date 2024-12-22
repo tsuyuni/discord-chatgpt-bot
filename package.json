@@ -15,6 +15,7 @@
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7",
     "openai": "^4.77.0",
+    "postgres": "^3.4.5",
     "tsconfig-paths": "^4.2.0",
     "zod": "^3.24.1"
   },

@@ -29,7 +29,7 @@ client.on("messageCreate", async (message) => {
 
   if (message.channel instanceof ThreadChannel) {
     if (message.channel.parent?.name === "chat-gpt") {
-      const reply = await chatHandler(message.content);
+      const reply = await chatHandler(message.channelId, message.content);
       await message.reply(reply || "No response from GPT-4o");
     }
   }
