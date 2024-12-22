@@ -14,7 +14,7 @@ const schema = z.object({
   OPENAI_API_KEY: z.string().nonempty(),
 
   // PostgreSQL
-  POSTGRES_DATABASE_URL: z.string().nonempty(),
+  DATABASE_URL: z.string().nonempty(),
 });
 
 const env = schema.parse(process.env);
