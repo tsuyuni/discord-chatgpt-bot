@@ -10,15 +10,17 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === "chat") {
-    const title = interaction.options.getString("title");
-    const channel = interaction.channel as TextChannel;
-    const thread = await channel.threads.create({
-      name: title || "New Chat",
-    });
-    interaction.reply({
-      content: `新規スレッドが作成されました。 ${thread}`,
-    });
-    thread.send(`\`${title}\` を作成しました。`);
+    if (interaction.channel instanceof TextChannel) {
+      const title = interaction.options.getString("title");
+      const channel = interaction.channel;
+      const thread = await channel.threads.create({
+        name: title || "New Chat",
+      });
+      interaction.reply({
+        content: `新規スレッドが作成されました。 ${thread}`,
+      });
+      thread.send(`\`${title}\` を作成しました。`);
+    }
   }
 });
 
