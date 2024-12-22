@@ -1,9 +1,9 @@
 import OpenAI from "openai";
-import env from "@env";
 import {
   ApplicationCommandDataResolvable,
   ApplicationCommandOptionType,
 } from "discord.js";
+import env from "@env";
 
 const openai = new OpenAI({
   organization: env.OPENAI_ORG_ID,
